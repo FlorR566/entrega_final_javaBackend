@@ -1,122 +1,63 @@
 package com.api.talentolab;
 
 import com.api.talentolab.exception.ProductoNoEncontradoException;
+import com.api.talentolab.exception.StockInsuficienteException;
 import com.api.talentolab.model.Producto;
 import com.api.talentolab.service.ProductoService;
+import com.api.talentolab.ui.MenuProducto;
 import com.api.talentolab.util.Validador;
 
 import java.util.Scanner;
 
 public class Main {
-
-    private static final String MENU = """
-
-            ¿Qué querés hacer?
-            1. Agregar producto
-            2. Listar productos
-            3. Buscar por ID
-            4. Actualizar producto
-            5. Eliminar por ID
-            0. Salir
-            """;
-
     public static void main(String[] args) {
-        ProductoService servicio = new ProductoService();
+        // se crean las dependencias una sola vez y luego se comparten durante toda la ejecución del programa.
+        ProductoService service = new ProductoService();
+        Scanner sc = new Scanner(System.in);
+        MenuProducto menu = new MenuProducto(sc, service);
+        cargarDatosDePrueba(service);
 
-        try (Scanner sc = new Scanner(System.in)) {
-            System.out.println("=== GESTIÓN DE PRODUCTOS ===");
+        int opcion;
 
-            int opcion;
-            do {
-                System.out.println(MENU);
-                opcion = Validador.leerEntero(sc, "Opción: ");
-
-                try {
-                    ejecutar(opcion, sc, servicio);
-                } catch (ProductoNoEncontradoException | IllegalArgumentException e) {
-                    System.out.println("Error: " + e.getMessage());
+        /**
+         *  Cada opción del menú está envuelta en try/catch.
+         *  Si una operación lanza una excepción (producto
+         *  inexistente, datos inválidos, etc.), el programa NO
+         *  se cae: muestra el mensaje y vuelve a mostrar el menú.
+         */
+        do {
+            menu.mostrarMenu();
+            opcion = Validador.leerEntero(sc, "Elija una opción: ");
+            try {
+                switch (opcion) {
+                    case 1 -> menu.agregarProducto();
+                    // case 2 -> menu.listarProductos();
+                    // case 3 -> menu.buscarProducto();
+                    // case 4 -> menu.actualizarProducto();
+                    // case 5 -> menu.eliminarProducto();
+                    case 6 -> System.out.println("¡Hasta luego!");
+                    default -> System.out.println("Opción inválida. Elija un número del 1 al 6.");
                 }
-            } while (opcion != 0);
-        }
+            } catch (ProductoNoEncontradoException | StockInsuficienteException e) {
+                // captura las excepciones personalizadas
+                System.out.println(e.getMessage());
+            } catch (IllegalArgumentException e) {
+                // Validador de datos genericos invalidos (nombre, precio negativo, etc...)
+                System.out.println(e.getMessage());
+            }
+        } while (opcion != 6);
+
+        sc.close();
     }
 
-    private static void ejecutar(int opcion, Scanner sc, ProductoService servicio) {
-        switch (opcion) {
-            case 1 -> agregarProducto(sc, servicio);
-            case 2 -> servicio.listar();
-            case 3 -> buscarProducto(sc, servicio);
-            case 4 -> actualizarPorId(sc, servicio);
-            case 5 -> eliminarProducto(sc, servicio);
-            case 0 -> System.out.println("Saliendo...");
-            default -> System.out.println("Opción no válida. Elegí entre 0 y 4.");
-        }
+    // Datos de prueba:
+    private static void cargarDatosDePrueba(ProductoService service) {
+        service.agregar(new Producto("Café molido 500g", 4500, 30, "Bebidas"));
+        service.agregar(new Producto("Yerba mate 1kg", 3200, 50, "Bebidas"));
+        service.agregar(new Producto("Galletitas dulces", 1850, 100, "Almacén"));
+        service.agregar(new Producto("Aceite de oliva 500ml", 6700, 20, "Almacén"));
+        service.agregar(new Producto("Chocolate amargo 70%", 2900, 15, "Golosinas"));
+        System.out.println("\nNOTA: ✔ Se cargaron 5 productos de prueba.\n");
     }
 
-    private static void agregarProducto(Scanner sc, ProductoService servicio) {
-        String nombre = Validador.leerTexto(sc, "Ingresá el nombre del producto: ");
-        Validador.validarNombre(nombre);
-
-        double precio = Validador.leerDecimal(sc, "Ingresá el precio: ");
-        Validador.validarPrecio(precio);
-
-        int stock = Validador.leerEntero(sc, "Ingresá el stock: ");
-        Validador.validarStock(stock);
-
-        String categoria = Validador.leerTexto(sc, "Ingresá la categoría: ");
-        Validador.validarCategoria(categoria);
-
-        servicio.agregar(nombre, precio, stock, categoria);
-    }
-
-    private static void buscarProducto(Scanner sc, ProductoService servicio) {
-        int id = Validador.leerEntero(sc, "ID a buscar: ");
-        Producto p = servicio.buscarPorId(id);
-        System.out.println("Encontrado: " + p);
-    }
-
-    private static void actualizarPorId(Scanner sc, ProductoService servicio) {
-        int id = Validador.leerEntero(sc, "ID a actualizar: ");
-        Producto p = servicio.buscarPorId(id);
-
-        int dato = Validador.leerEntero(sc, """ 
-                ¿Cuál es el dato que querés actualizar? 
-                1. Nombre
-                2. Precio
-                3. Stock
-                4. Categoria
-                5. Salir
-                """);
-
-        switch (dato) {
-            case 1:
-                String nombre = Validador.leerTexto(sc, "Ingresá el nuevo nombre: ");
-                Validador.validarNombre(nombre);
-                servicio.actualizarPorId(id, nombre, p.getPrecio(), p.getStock(), p.getCategoria());
-                return;
-            case 2:
-                double precio = Validador.leerDecimal(sc, "Ingresá e nuevo precio: ");
-                Validador.validarPrecio(precio);
-                servicio.actualizarPorId(id, p.getNombre(),precio, p.getStock(), p.getCategoria());
-                return;
-            case 3:
-                int stock = Validador.leerEntero(sc, "Ingresá el nuevo stock: ");
-                Validador.validarStock(stock);
-                servicio.actualizarPorId(id, p.getNombre(), p.getPrecio(), stock, p.getCategoria());
-                return;
-            case 4:
-                String categoria = Validador.leerTexto(sc, "Ingresá la nueva categoria: ");
-                Validador.validarCategoria(categoria);
-                servicio.actualizarPorId(id, p.getNombre(), p.getPrecio(), p.getStock(), categoria);
-                return;
-            case 5:
-                System.out.println("Saliendo...");
-                return;
-            default: System.out.println("Opción no válida. Elegí entre 1 y 5.");
-        }
-    }
-
-    private static void eliminarProducto(Scanner sc, ProductoService servicio) {
-        int id = Validador.leerEntero(sc, "ID a eliminar: ");
-        servicio.eliminar(id);
-    }
 }
