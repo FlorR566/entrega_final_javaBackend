@@ -33,7 +33,7 @@ public class Main {
                     case 1 -> menu.agregarProducto();
                     case 2 -> menu.listarProductos();
                     case 3 -> menu.buscarProducto();
-                    // case 4 -> menu.actualizarProducto();
+                    case 4 -> menu.actualizarProducto();
                     // case 5 -> menu.eliminarProducto();
                     case 6 -> System.out.println("¡Hasta luego!");
                     default -> System.out.println("Opción inválida. Elija un número del 1 al 6.");

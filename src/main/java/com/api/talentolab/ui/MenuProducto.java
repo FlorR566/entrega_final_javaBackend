@@ -71,4 +71,23 @@ public class MenuProducto {
         System.out.println("Encontrado: " + p);
     }
 
+    public void actualizarProducto() {
+        Long id = (long) Validador.leerEntero(sc, "Ingrese el id del producto a actualizar: ");
+
+        Producto actual = service.buscarPorId(id); // Se muestran los datos actuales, para saber qué modificar
+        System.out.println("Datos actuales: " + actual);
+
+        System.out.println("--- Ingrese los nuevos datos ---");
+        String nombre = Validador.leerTexto(sc, "Nombre: ");
+        double precio = Validador.leerDecimal(sc, "Precio: ");
+        int stock = Validador.leerEntero(sc, "Stock: ");
+        String categoria = Validador.leerTexto(sc, "Categoría: ");
+
+        Producto datos = new Producto(nombre, precio, stock, categoria);
+        Producto actualizado = service.actualizar(id, datos);
+
+        System.out.println("Producto actualizado: " + actualizado);
+
+    }
+
 }
