@@ -1,6 +1,7 @@
 package com.techlab.api.service;
 
 
+import com.techlab.api.exception.ElementoDuplicadoException;
 import com.techlab.api.exception.ProductoNoEncontradoException;
 import com.techlab.api.model.Producto;
 import com.techlab.api.util.Validador;
@@ -26,7 +27,16 @@ public class ProductoService {
      * CREATE: Agrega un nuevo producto. La validación de datos se hace en Main.
      */
     public Producto agregar(Producto p) {
-        // valida datos antes de aplicarlos
+        // primero validamos si ya existe un producto con el mismo nombre guardado
+        boolean existeNombre = productos.stream()
+                .anyMatch(producto -> producto.getNombre().equalsIgnoreCase(p.getNombre()));
+
+        if (existeNombre) {
+            throw new ElementoDuplicadoException("Ya existe un producto con el nombre: " + p.getNombre());
+        }
+
+        // si llega acá, significa que no existe en la base
+        // validamos datos antes de aplicarlos
         Validador.validarNombre(p.getNombre());
         Validador.validarPrecio(p.getPrecio());
         Validador.validarStock(p.getStock());
