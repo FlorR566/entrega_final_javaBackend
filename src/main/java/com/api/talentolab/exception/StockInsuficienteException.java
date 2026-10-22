@@ -1,4 +1,4 @@
-package com.tup.talentolab.exception;
+package com.api.talentolab.exception;
 
 /**
  * Excepción personalizada que se lanza cuando se intenta asignar un stock inválid (ej: un valor negativo)

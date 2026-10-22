@@ -1,4 +1,4 @@
-package com.tup.talentolab.exception;
+package com.api.talentolab.exception;
 
 /**
  * Excepción personalizada que se lanza cuando se busca un producto por su id y no existe en el sistema

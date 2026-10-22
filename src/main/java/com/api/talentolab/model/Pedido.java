@@ -1,10 +1,8 @@
-package com.tup.talentolab.model;
+package com.api.talentolab.model;
 
 import java.util.ArrayList;
 
 public class Pedido {
-
-    private static Long contadorId = 0L;
 
     // attibutos
     private Long id;
@@ -15,8 +13,6 @@ public class Pedido {
     public Pedido(Cliente cliente) {
         this.productos = new ArrayList<>();
         this.cliente = cliente;
-        this.id = contadorId++;
-
     }
 
     // getters y setters

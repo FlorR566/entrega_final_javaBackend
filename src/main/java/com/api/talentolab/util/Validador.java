@@ -1,6 +1,6 @@
-package com.tup.talentolab.util;
+package com.api.talentolab.util;
 
-import com.tup.talentolab.exception.StockInsuficienteException;
+import com.api.talentolab.exception.StockInsuficienteException;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;

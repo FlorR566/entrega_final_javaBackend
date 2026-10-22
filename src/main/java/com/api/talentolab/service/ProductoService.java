@@ -1,7 +1,7 @@
-package com.tup.talentolab.service;
+package com.api.talentolab.service;
 
-import com.tup.talentolab.exception.ProductoNoEncontradoException;
-import com.tup.talentolab.model.Producto;
+import com.api.talentolab.exception.ProductoNoEncontradoException;
+import com.api.talentolab.model.Producto;
 
 import java.util.ArrayList;
 import java.util.List;

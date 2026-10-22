@@ -1,9 +1,9 @@
-package com.tup.talentolab;
+package com.api.talentolab;
 
-import com.tup.talentolab.exception.ProductoNoEncontradoException;
-import com.tup.talentolab.model.Producto;
-import com.tup.talentolab.service.ProductoService;
-import com.tup.talentolab.util.Validador;
+import com.api.talentolab.exception.ProductoNoEncontradoException;
+import com.api.talentolab.model.Producto;
+import com.api.talentolab.service.ProductoService;
+import com.api.talentolab.util.Validador;
 
 import java.util.Scanner;
 
