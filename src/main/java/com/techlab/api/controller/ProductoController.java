@@ -23,8 +23,8 @@ public class ProductoController {
         return productoService.listarTodos();
     }
 
-    // POST /priductos -> @RequestBody convierte el JSON del cuerpo en un Producto
-    @PatchMapping
+    // POST /productos -> @RequestBody convierte el JSON del cuerpo en un Producto
+    @PostMapping
     public Producto crear(@RequestBody Producto p) {
         return productoService.agregar(p);
     }
