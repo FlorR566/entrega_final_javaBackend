@@ -21,8 +21,8 @@ public class ProductoController {
 
     // GET /productos -> devuelve la lista de productos
     @GetMapping
-    public List<Producto> listar() {
-        return productoService.listarTodos();
+    public ResponseEntity<List<Producto>> listar() {
+        return ResponseEntity.ok(productoService.listarTodos()); // 200
     }
 
     // POST /productos -> @RequestBody convierte el JSON del cuerpo en un Producto
