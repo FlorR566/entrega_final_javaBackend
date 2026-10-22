@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 /**
  * Clase con métodos de validación reutilizables.
- * Todos los métodos son estáticos.
+ * Todos los métodos son estáticos, no necesitan de una instancia de validador para usarlos.
  *
  **/
 public class Validador {
