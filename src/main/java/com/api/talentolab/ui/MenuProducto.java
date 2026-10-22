@@ -65,4 +65,10 @@ public class MenuProducto {
         }
     }
 
+    public void buscarProducto() {
+        Long id = (long) Validador.leerEntero(sc, "Ingrese el id del producto: ");
+        Producto p =  service.buscarPorId(id);
+        System.out.println("Encontrado: " + p);
+    }
+
 }
