@@ -4,7 +4,6 @@ import com.api.talentolab.exception.ProductoNoEncontradoException;
 import com.api.talentolab.model.Producto;
 import com.api.talentolab.util.Validador;
 
-import java.awt.color.ProfileDataException;
 import java.util.ArrayList;
 import java.util.List;
 
