@@ -25,6 +25,11 @@ public class ProductoController {
         return ResponseEntity.ok(productoService.listarTodos()); // 200
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Producto> obtener(@PathVariable Long id) {
+        return ResponseEntity.ok(productoService.buscarPorId(id));// 200
+    }
+
     // POST /productos -> @RequestBody convierte el JSON del cuerpo en un Producto
     @PostMapping
     public ResponseEntity<Producto> crear(@RequestBody Producto p) {
