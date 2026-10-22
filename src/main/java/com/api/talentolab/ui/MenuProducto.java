@@ -4,6 +4,7 @@ import com.api.talentolab.model.Producto;
 import com.api.talentolab.service.ProductoService;
 import com.api.talentolab.util.Validador;
 
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -51,5 +52,17 @@ public class MenuProducto {
         System.out.println("Producto agregado, id: " + guardado.getId());
     }
 
+    public void listarProductos() {
+        List<Producto> lista = service.listarTodos();
+
+        if (lista.isEmpty()) {
+            System.out.println("No hay productos cargados.");
+        }
+
+        System.out.println("--- Catálogo ---");
+        for (Producto p : lista) {
+            p.mostrar();
+        }
+    }
 
 }

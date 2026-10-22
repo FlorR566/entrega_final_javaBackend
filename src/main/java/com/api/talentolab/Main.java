@@ -31,7 +31,7 @@ public class Main {
             try {
                 switch (opcion) {
                     case 1 -> menu.agregarProducto();
-                    // case 2 -> menu.listarProductos();
+                    case 2 -> menu.listarProductos();
                     // case 3 -> menu.buscarProducto();
                     // case 4 -> menu.actualizarProducto();
                     // case 5 -> menu.eliminarProducto();
