@@ -1,0 +1,35 @@
+package com.techlab.api.controller;
+
+import com.techlab.api.model.Producto;
+import com.techlab.api.service.ProductoService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping ("/productos") // prefijo común ara todas las rutas de este controlador
+public class ProductoController {
+
+    private final ProductoService productoService;
+
+    // Inyección por constructor, con un único constructor.
+    public ProductoController(ProductoService productoService) {
+        this.productoService = productoService;
+    }
+
+    // GET /productos -> devuelve la lista de productos
+    @GetMapping
+    public List<Producto> listar() {
+        return productoService.listarTodos();
+    }
+
+    // POST /priductos -> @RequestBody convierte el JSON del cuerpo en un Producto
+    @PatchMapping
+    public Producto crear(@RequestBody Producto p) {
+        return productoService.agregar(p);
+    }
+
+
+}
+
+
