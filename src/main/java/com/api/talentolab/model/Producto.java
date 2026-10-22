@@ -1,8 +1,6 @@
-package com.tup.talentolab.model;
+package com.api.talentolab.model;
 
 public class Producto {
-
-    private static Long contadorId = 0L;  // contador global que vive a nivel de clase
 
     // atributos
     private Long id;
@@ -13,13 +11,10 @@ public class Producto {
 
     // constructor vacío
     public  Producto() {
-        this.id = ++contadorId;
-        setNombre("nombre_defecto");
     }
 
     // sobrecarga de constructor
     public Producto(String nombre, double precio, int stock, String categoria) {
-        this.id = ++contadorId;
         setNombre(nombre);
         setPrecio(precio);
         setStock(stock);
@@ -31,16 +26,16 @@ public class Producto {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getNombre() {
         return nombre;
     }
 
     public void setNombre(String nombre) {
-        if (nombre != null && !nombre.isBlank()) {
-            this.nombre = nombre;
-        } else {
-            this.nombre = "nombre_defecto";
-        }
+        this.nombre = nombre;
     }
 
     public double getPrecio() {
@@ -48,9 +43,7 @@ public class Producto {
     }
 
     public void setPrecio(double precio) {
-        if (precio >= 0) {
-            this.precio = precio;
-        }
+        this.precio = precio;
     }
 
     public int getStock() {
@@ -58,9 +51,7 @@ public class Producto {
     }
 
     public void setStock(int stock) {
-        if (stock >= 0) {
-            this.stock = stock;
-        }
+        this.stock = stock;
     }
 
 
@@ -74,16 +65,25 @@ public class Producto {
         }
     }
 
-    public static Long getContadorId() {
-        return contadorId;
+    // método
+    public void mostrar() {
+        System.out.println("ID: " + id +
+                " | " + nombre +
+                " | $" + precio +
+                " | Stock: " + stock +
+                " | Categoría: " + categoria);
     }
+
 
     // toString
     @Override
     public String toString() {
-        return "[ID: " + id + "] " + nombre +
-                " | Precio: $" + precio +
+        return "ID: " + id +
+                " | " + nombre +
+                " | $" + precio +
                 " | Stock: " + stock +
-                " | Categoria: " + categoria;
+                " | Categoría: " + categoria;
     }
+
+
 }

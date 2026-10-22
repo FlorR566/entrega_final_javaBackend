@@ -1,8 +1,6 @@
-package com.tup.talentolab.model;
+package com.api.talentolab.model;
 
 public class Cliente {
-
-    private static Long contadorId = 0L;
 
     // atributos
     private Long id;
@@ -11,25 +9,22 @@ public class Cliente {
     private String email;
 
     // constructor
-    public Cliente() {
-        this.id = ++contadorId;
-    }
+    public Cliente() {}
 
     // sobrecarga constructor
     public Cliente(String nombre, String apellido, String email) {
-        this();
         setNombre(nombre);
         setApellido(apellido);
         setEmail(email);
     }
 
     // getters y setters
-    public static Long getContadorId() {
-        return contadorId;
-    }
-
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -37,23 +32,15 @@ public class Cliente {
     }
 
     public void setNombre(String nombre) {
-        if (nombre != null && !nombre.isBlank()) {
-            this.nombre = nombre;
-        } else {
-            this.nombre = "nombre_cliente" + getId();
-        }
+        this.nombre = nombre;
     }
 
     public String getApellido() {
         return apellido;
     }
 
-    public void setApellido(String apellido) {
-        if (apellido != null && !apellido.isBlank()) {
-            this.apellido = apellido;
-        } else {
-            this.apellido = "apellido_cliente" + getId();
-        }
+    public void setApellido(String apellido){
+        this.apellido = apellido;
     }
     public String getEmail() {
         return email;

@@ -1,13 +1,13 @@
-package com.tup.talentolab.util;
+package com.api.talentolab.util;
 
-import com.tup.talentolab.exception.StockInsuficienteException;
+import com.api.talentolab.exception.StockInsuficienteException;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
  * Clase con métodos de validación reutilizables.
- * Todos los métodos son estáticos.
+ * Todos los métodos son estáticos, no necesitan de una instancia de validador para usarlos.
  *
  **/
 public class Validador {
