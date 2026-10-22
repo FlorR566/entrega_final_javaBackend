@@ -87,7 +87,13 @@ public class MenuProducto {
         Producto actualizado = service.actualizar(id, datos);
 
         System.out.println("Producto actualizado: " + actualizado);
+    }
 
+    public void eliminarProducto() {
+        Long id = (long) Validador.leerEntero(sc, "Ingrese el id del producto a eliminar: ");
+
+        service.eliminar(id);
+        System.out.println("Producto eliminado.");
     }
 
 }
