@@ -11,7 +11,14 @@ public class GlobalExceptionHandler {
     // si algún método lanza ProductoNoEncontradoException, se ejecuta este
     @ExceptionHandler(ProductoNoEncontradoException.class)
     public ResponseEntity<String> manejarNoEncontrado(ProductoNoEncontradoException e) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());  // 404
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());   // 404
     }
+
+    // Stock negativo: dato inválido enviado por el cliente
+    @ExceptionHandler(StockInsuficienteException.class)
+    public ResponseEntity<String> manejarStock(StockInsuficienteException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());  // 400
+    }
+
 
 }
