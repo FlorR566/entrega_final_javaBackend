@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping ("/productos") // prefijo común ara todas las rutas de este controlador
+@RequestMapping ("/productos") // prefijo común para todas las rutas de este controlador
 public class ProductoController {
 
     private final ProductoService productoService;
@@ -37,18 +37,18 @@ public class ProductoController {
          Producto nuevo = productoService.agregar(p);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevo);   // 201
     }
-//
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Producto> actualizar(@PathVariable Long id, @RequestBody Producto datos) {
-//        return ResponseEntity.ok(productoService.actualizar(id, datos)); // 200
-//    }
-//
-//
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
-//        productoService.eliminar(id);
-//        return ResponseEntity.noContent().build(); // 204
-//    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Producto> actualizar(@PathVariable Long id, @RequestBody Producto datos) {
+        return ResponseEntity.ok(productoService.actualizar(id, datos)); // 200
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+        productoService.eliminar(id);
+        return ResponseEntity.noContent().build(); // 204
+    }
 
 }
 
