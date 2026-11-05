@@ -25,12 +25,22 @@ public class Validador {
 
     public static void validarStock(int stock) {
         if (stock < 0) {
-            throw new StockInsuficienteException("El stock no puede ser negativo.");
+            throw new IllegalArgumentException("El stock no puede ser negativo.");
+        }
+    }
+
+    public static void validarStockDisponible(int stockActual, int cantidadPedida) {
+        if (cantidadPedida <= 0) {
+            throw new IllegalArgumentException("La cantidad pedida debe ser mayor a cero.");
+        }
+        if (stockActual < cantidadPedida) {
+            throw new StockInsuficienteException(
+                    "Stock insuficiente. Disponible: " + stockActual + ", pedido: " + cantidadPedida);
         }
     }
 
     public static void validarCategoria(Categoria categoria) {
-        if (categoria == null) {
+        if (categoria == null || categoria.getId() == null) {
             throw new IllegalArgumentException("La categoría es obligatoria.");
         }
     }
