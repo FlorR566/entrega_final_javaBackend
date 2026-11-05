@@ -1,21 +1,30 @@
 package com.techlab.api.model;
 
+import jakarta.persistence.*;
+import java.math.BigDecimal;
 
+@Entity
 public class Producto {
 
     // atributos
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
-    private double precio;
+    private BigDecimal precio;
     private int stock;
-    private String categoria;
 
-    // constructor vacío
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
+
+
+    // constructor vacío que usa JPA para crear los objetos al leer la base
     public  Producto() {
     }
 
     // sobrecarga de constructor
-    public Producto(String nombre, double precio, int stock, String categoria) {
+    public Producto(String nombre, BigDecimal precio, int stock, Categoria categoria) {
         setNombre(nombre);
         setPrecio(precio);
         setStock(stock);
@@ -39,11 +48,11 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public double getPrecio() {
+    public BigDecimal getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(BigDecimal precio) {
         this.precio = precio;
     }
 
@@ -56,14 +65,12 @@ public class Producto {
     }
 
 
-    public String getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
-        if (categoria != null && !categoria.isBlank()) {
+    public void setCategoria(Categoria categoria) {
             this.categoria = categoria;
-        }
     }
 
     // método

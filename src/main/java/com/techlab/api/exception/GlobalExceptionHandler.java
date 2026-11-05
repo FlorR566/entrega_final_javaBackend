@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice // atiende los errores de todos los controladores
 public class GlobalExceptionHandler {
 
-    // si algún método lanza ProductoNoEncontradoException, se ejecuta este
-    @ExceptionHandler(ProductoNoEncontradoException.class)
-    public ResponseEntity<String> manejarNoEncontrado(ProductoNoEncontradoException e) {
+    // si algún método lanza RecursoNoEncontradoException, se ejecuta este
+    @ExceptionHandler(RecursoNoEncontradoException.class)
+    public ResponseEntity<String> manejarNoEncontrado(RecursoNoEncontradoException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());    // 404
     }
 

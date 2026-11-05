@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping ("/productos") // prefijo común ara todas las rutas de este controlador
+@RequestMapping ("/productos") // prefijo común para todas las rutas de este controlador
 public class ProductoController {
 
     private final ProductoService productoService;
@@ -22,13 +22,14 @@ public class ProductoController {
     // GET /productos -> devuelve la lista de productos
     @GetMapping
     public ResponseEntity<List<Producto>> listar() {
-        return ResponseEntity.ok(productoService.listarTodos()); // 200
+        return ResponseEntity.ok(productoService.listarTodos());    // 200
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Producto> obtener(@PathVariable Long id) {
-        return ResponseEntity.ok(productoService.buscarPorId(id));// 200
+        return ResponseEntity.ok(productoService.buscarPorId(id));  // 200
     }
+
 
     // POST /productos -> @RequestBody convierte el JSON del cuerpo en un Producto
     @PostMapping
