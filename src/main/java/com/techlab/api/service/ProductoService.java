@@ -81,14 +81,20 @@ public class ProductoService {
         Validador.validarPrecio(datos.getPrecio());
         Validador.validarStock(datos.getStock());
         Validador.validarCategoria(datos.getCategoria());
+        // valida que no exista un nombre igual en la DB
+        repository.findByNombreIgnoreCase(datos.getNombre()).ifPresent(existente -> {
+            if(!existente.getId().equals(id)) {
+                throw new ElementoDuplicadoException("Ya existe un producto con el nombre: " + existente.getNombre());
+            }
+        });
+        // validamos si el ID existe en la DB (si no, lanza una exception)
+        Categoria categoria = categoriaService.buscarPorId(datos.getCategoria().getId());
 
         // modifica el producto
         p.setNombre(datos.getNombre());
         p.setPrecio(datos.getPrecio());
         p.setStock(datos.getStock());
-        // validamos si el ID existe en la DB (si no, lanza una exception)
-        Categoria categoria = categoriaService.buscarPorId(p.getCategoria().getId());
-        p.setCategoria(datos.getCategoria());
+        p.setCategoria(categoria);
 
         return repository.save(p);
     }
