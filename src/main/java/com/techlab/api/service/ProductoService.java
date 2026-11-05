@@ -1,8 +1,7 @@
 package com.techlab.api.service;
 
 
-import com.techlab.api.exception.ElementoDuplicadoException;
-import com.techlab.api.exception.ProductoNoEncontradoException;
+import com.techlab.api.exception.RecursoNoEncontradoException;
 import com.techlab.api.model.Producto;
 import com.techlab.api.repository.CategoriaRepository;
 import com.techlab.api.repository.ProductoRepository;
@@ -42,7 +41,7 @@ public class ProductoService {
     public Producto buscarPorId(Long id) {
         Optional<Producto> producto = repository.findById(id);
         if (producto.isEmpty()) {
-            throw new ProductoNoEncontradoException("No se encontró un producto con el id: " + id);
+            throw new RecursoNoEncontradoException("No se encontró un producto con el id: " + id);
         }
         return producto.get();
     }
