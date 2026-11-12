@@ -30,6 +30,11 @@ public class ProductoController {
         return ResponseEntity.ok(productoService.buscarPorId(id));  // 200
     }
 
+    // GET /productos/stock-bajo
+    @GetMapping("/stock-bajo")
+    public ResponseEntity<List<Producto>> stockBajo() {
+        return ResponseEntity.ok(productoService.listarStockBajo()); // 200
+    }
 
     // POST /productos -> @RequestBody convierte el JSON del cuerpo en un Producto
     @PostMapping

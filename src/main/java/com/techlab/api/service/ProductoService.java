@@ -42,6 +42,10 @@ public class ProductoService {
                 .orElseThrow(() -> new RecursoNoEncontradoException("No se encontró un producto con el id: " + id));
     }
 
+    // GET /productos/stock-bajo  (menos de 30 unidades)
+    public List<Producto> listarStockBajo() {
+        return repository.findByStockLessThan(30);
+    }
 
     /**
      * POST: Agrega un nuevo producto.
